@@ -11,8 +11,16 @@ public class MyLinkedList
 
     public void add(Object value)
     {
-        ListNode newNode = new ListNode(value, head);
-        head = newNode;
+        ListNode newNode = new ListNode(value, null);
+        if (head == null) {
+            head = newNode;
+        } else {
+            ListNode current = head;
+            while (current.getNext() != null) {
+                current = current.getNext();
+            }
+            current.setNext(newNode);
+        }
         size++;
     } // end add
 
@@ -31,7 +39,7 @@ public class MyLinkedList
     } // end get
 
     public boolean isEmpty() { 
-        if(size == 0 || head == newNode) {
+        if(size == 0 || head == null) {
             return true;
         }
         return false;
@@ -45,12 +53,22 @@ public class MyLinkedList
     } // end size
 
 
-    public String toString() { 
-    return "Head:" + head.getValue() + "  Heads Next Value:" + head.getNext().getValue(); + "Index:" + size;
+    public String toString() {
+        if (head == null) {
+            return "nothing";
+        }
+        String result = "";
+        ListNode current = head;
+        int index = 0;
+        while (current != null) {
+            result += index + ": " + current.getValue();
+            if (current.getNext() != null) {
+                result += "\n";
+            }
+            current = current.getNext();
+            index++;
+        }
+        return result;
     }
-
-    
-
-
 
 }
